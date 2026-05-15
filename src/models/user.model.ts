@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
+  username?: string;
   isEmailVerified: boolean;
   otpCode?: string;
   otpExpiresAt?: Date;
@@ -12,12 +13,14 @@ export interface UserDocument extends mongoose.Document {
   bio?: string;
   avatarUrl?: string;
   phone?: string;
+  birthdate?: string;
 }
 
 const userSchema = new Schema<UserDocument>(
   {
     email: { type: String, required: true, unique: true, trim: true, lowercase: true },
     password: { type: String, required: true },
+    username: { type: String, trim: true },
     isEmailVerified: { type: Boolean, default: false },
     otpCode: { type: String },
     otpExpiresAt: { type: Date },
@@ -26,7 +29,8 @@ const userSchema = new Schema<UserDocument>(
     displayName: { type: String, trim: true },
     bio: { type: String, maxlength: 200 },
     avatarUrl: { type: String },
-    phone: { type: String, trim: true }
+    phone: { type: String, trim: true },
+    birthdate: { type: String, trim: true }
   },
   { timestamps: true }
 );

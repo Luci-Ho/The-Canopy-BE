@@ -4,7 +4,7 @@ import { comparePassword, hashPassword } from '../utils/hash';
 import { signToken } from '../utils/jwt';
 
 export const register = async (req: Request, res: Response) => {
-  const { email, password } = req.body as { email: string; password: string };
+  const { email, password, username } = req.body as { email: string; password: string; username: string };
 
   const existing = await UserModel.findOne({ email });
   if (existing) return res.status(409).json({ message: 'Email already exists' });
@@ -12,6 +12,7 @@ export const register = async (req: Request, res: Response) => {
   await UserModel.create({
     email,
     password: await hashPassword(password),
+    username: username || email.split('@')[0],
     isEmailVerified: true,
   });
 
@@ -35,4 +36,9 @@ export const getMe = async (req: Request, res: Response) => {
   const user = await UserModel.findById(userId).select('-password -otpCode -resetToken');
   if (!user) return res.status(404).json({ message: 'User not found' });
   return res.json(user);
+};
+
+export const getChatHistory = async (req: Request, res: Response) => {
+  // Mock chat history - return empty array
+  return res.json([]);
 };
