@@ -37,8 +37,3 @@ export const getMe = async (req: Request, res: Response) => {
   if (!user) return res.status(404).json({ message: 'User not found' });
   return res.json(user);
 };
-
-export const getChatHistory = async (req: Request, res: Response) => {
-  // Mock chat history - return empty array
-  return res.json([]);
-};

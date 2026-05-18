@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getMe, login, register, getChatHistory } from '../controllers/auth.controller';
+import { getMe, login, register } from '../controllers/auth.controller';
 import { authGuard } from '../middlewares/auth.middleware';
 import { validateBody } from '../middlewares/validate.middleware';
 import { loginSchema, registerSchema } from '../validators/auth.validator';
@@ -129,4 +129,3 @@ authRouter.post('/login', validateBody(loginSchema), login);
  *               $ref: '#/components/schemas/Error'
  */
 authRouter.get('/me', authGuard, getMe);
-authRouter.get('/chat/history', authGuard, getChatHistory);

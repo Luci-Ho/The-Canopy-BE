@@ -8,6 +8,7 @@ import { errorMiddleware } from './middlewares/error.middleware';
 import { authRouter } from './routes/auth.route';
 import { profileRouter } from './routes/profile.route';
 import { contentRouter } from './routes/content.route';
+import { chatRouter } from './routes/chat.route';
 
 export const app = express();
 
@@ -29,4 +30,5 @@ app.get('/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/content', contentRouter);
+app.use('/api/chat', chatRouter);
 app.use(errorMiddleware);
